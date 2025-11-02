@@ -27,7 +27,7 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     false
     )
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
     if (tid) {
         tid = false
         info.startCountdown(90)
@@ -62,6 +62,16 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     false
     )
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
+    if (tæller) {
+        tæller = false
+        info.changeScoreBy(1)
+        control.runInBackground(function () {
+    pause(5000)
+    tæller = true
+})
+    }
+})
 info.onCountdownEnd(function () {
     game.gameOver(true)
     game.setGameOverMessage(true, "Godt kørt!")
@@ -92,16 +102,6 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     false
     )
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`målstreg`, function (sprite, location) {
-    if (tæller) {
-        tæller = false
-        info.changeScoreBy(1)
-        control.runInBackground(function () {
-    pause(5000)
-    tæller = true
-})
-    }
-})
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     mySprite,
@@ -128,6 +128,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 function Gamestart () {
+    trackSelect = [tilemap`level`, tilemap`level2`]
     mySprite = sprites.create(img`
         . . . . . . e e c c e e . . . . 
         . . . . . e 2 2 2 2 2 2 e . . . 
@@ -148,7 +149,6 @@ function Gamestart () {
         `, SpriteKind.Player)
     controller.moveSprite(mySprite)
     scene.cameraFollowSprite(mySprite)
-    trackSelect = [tilemap`level1`, tilemap`level3`]
     input2 = game.askForNumber("Vælg bane", 1)
     tiles.setCurrentTilemap(trackSelect[input2])
     tiles.placeOnTile(mySprite, tiles.getTileLocation(13, 8))
