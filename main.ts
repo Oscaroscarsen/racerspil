@@ -172,7 +172,7 @@ function Gamestart () {
         `)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    info.changeCountdownBy(2)
+    info.changeCountdownBy(-2)
     sprites.destroy(otherSprite)
 })
 let mySprite2: Sprite = null
